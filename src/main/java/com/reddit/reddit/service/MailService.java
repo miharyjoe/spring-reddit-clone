@@ -16,10 +16,10 @@ import org.springframework.stereotype.Service;
 public class MailService {
   private final JavaMailSender mailSender;
   private final MailContentBuilder mailContentBuilder;
-  public void sendMail(NotificationEmail notificationEmail){
+  void sendMail(NotificationEmail notificationEmail){
     MimeMessagePreparator messagePreparator = mimeMessage -> {
       MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-      messageHelper.setFrom("springreddit@gmail.com");
+      messageHelper.setFrom("miharyjoel@gmail.com");
       messageHelper.setTo(notificationEmail.getRecipient());
       messageHelper.setSubject(notificationEmail.getSubject());
       messageHelper.setText(mailContentBuilder.build(notificationEmail.getBody()));

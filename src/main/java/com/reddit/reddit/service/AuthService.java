@@ -1,6 +1,7 @@
 package com.reddit.reddit.service;
 
 import com.reddit.reddit.dto.RegisterRequest;
+import com.reddit.reddit.model.NotificationEmail;
 import com.reddit.reddit.model.User;
 import com.reddit.reddit.model.VerificationToken;
 import com.reddit.reddit.repository.UserRepository;
@@ -23,6 +24,8 @@ public class AuthService {
 
   private final VerificationTokenRepository verificationTokenRepository;
 
+  private final MailService mailService;
+
   @Transactional
   public void signup(RegisterRequest registerRequest){
     User user = new User();
@@ -35,6 +38,10 @@ public class AuthService {
     userRepository.save(user);
     
     String token = generateVerificationToken(user);
+    mailService.sendMail(new NotificationEmail("Please Active your Account",
+      user.getEmail(), "Thank you for signing up to Spring Reddit, " +
+      "please click on the below url to activate your account : " +
+      "http://localhos:8080/api/auth/accountVerification/" + token));
   }
 
   private String generateVerificationToken(User user) {

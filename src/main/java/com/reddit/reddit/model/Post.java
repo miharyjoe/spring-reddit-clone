@@ -2,15 +2,14 @@ package com.reddit.reddit.model;
 
 
 import jakarta.annotation.Nullable;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.Instant;
 
 @Entity
 @Data
@@ -27,5 +26,21 @@ public class Post {
 
   @Nullable
   private String url;
+
+  @Nullable
+  @Lob
+  private String description;
+
+  private Integer voteCount;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "userId", referencedColumnName = "userId")
+  private User user;
+
+  private Instant createdDate;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "id", referencedColumnName = "id")
+  private Subreddit subreddit;
 
 }

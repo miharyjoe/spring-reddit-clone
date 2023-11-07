@@ -1,5 +1,7 @@
 package com.reddit.reddit.config;
 
+import com.reddit.reddit.service.AuthService;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -19,7 +21,17 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig  {
-  //TODO configure security
+
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http
+      .csrf().disable()
+      .authorizeHttpRequests((authz) -> authz
+        .anyRequest().permitAll()
+      )
+      .httpBasic(withDefaults());
+    return http.build();
+  }
   @Bean
   PasswordEncoder passwordEncoder(){
     return new BCryptPasswordEncoder();

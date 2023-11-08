@@ -56,7 +56,7 @@ public class SecurityConfig  {
         .requestMatchers("/api/auth/**")
         .permitAll()
         .requestMatchers(HttpMethod.GET, "/api/subreddit")
-        .permitAll()
+        .authenticated()
         .requestMatchers(HttpMethod.GET, "/api/posts/")
         .permitAll()
         .requestMatchers(HttpMethod.GET, "/api/posts/**")

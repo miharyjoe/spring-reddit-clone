@@ -23,7 +23,7 @@ public class User {
   private Long userId;
 
   @NotBlank(message ="userName is required")
-  private String userName;
+  private String username;
 
   @NotBlank(message ="password is required")
   private String password;

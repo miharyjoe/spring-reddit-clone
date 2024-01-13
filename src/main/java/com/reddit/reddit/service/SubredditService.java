@@ -37,28 +37,9 @@ public class SubredditService {
       .collect(Collectors.toList());
   }
 
-  public SubredditDto getSubreddit(Long id) {
+  public SubredditDto getSubreddit(Long id){
     Subreddit subreddit = subredditRepository.findById(id)
       .orElseThrow(() -> new SpringRedditException("No subreddit found with ID - " + id));
     return subredditMapper.mapSubredditToDto(subreddit);
   }
-
-  //Another way to implements mapper
-  /*
-  private SubredditDto mapToDto(Subreddit subreddit){
-    return SubredditDto.builder()
-      .name(subreddit.getName())
-      .id(subreddit.getId())
-      .description(subreddit.getDescription())
-      .numberOfPosts(subreddit.getPosts().size())
-      .build();
-  }
-
-  private Subreddit mapSubredditDto(SubredditDto subredditDto) {
-    return Subreddit.builder()
-      .name(subredditDto.getName())
-      .description(subredditDto.getDescription())
-      .build();
-  }
-   */
 }

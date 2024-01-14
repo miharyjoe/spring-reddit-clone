@@ -31,11 +31,11 @@ public class PostService {
   private final AuthService authService;
   private final PostMapper postMapper;
   private final PostRepository postRepository;
-  public Post save(PostRequest postRequest) {
+  public void save(PostRequest postRequest) {
       Subreddit subreddit = subredditRepository.findByName(postRequest.getSubredditName())
         .orElseThrow(() -> new SubredditNotFoundException(postRequest.getSubredditName()));
     User  currentUser = authService.getCurrentUser();
-    return postMapper.map(postRequest,subreddit,currentUser);
+    postRepository.save(postMapper.map(postRequest,subreddit,currentUser));
   }
 
   @Transactional(readOnly = true)

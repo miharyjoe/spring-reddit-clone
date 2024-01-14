@@ -2,7 +2,7 @@ package com.reddit.reddit.service;
 
 
 import com.reddit.reddit.dto.SubredditDto;
-import com.reddit.reddit.exeption.SpringRedditException;
+import com.reddit.reddit.exception.SpringRedditException;
 import com.reddit.reddit.mapper.SubredditMapper;
 import com.reddit.reddit.model.Subreddit;
 import com.reddit.reddit.repository.SubredditRepository;

@@ -1,4 +1,4 @@
-package com.reddit.reddit.exeption;
+package com.reddit.reddit.exception;
 
 public class SpringRedditException extends RuntimeException {
   public SpringRedditException(String exMessage) {

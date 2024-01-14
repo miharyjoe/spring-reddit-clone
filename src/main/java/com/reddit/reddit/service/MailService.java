@@ -1,6 +1,6 @@
 package com.reddit.reddit.service;
 
-import com.reddit.reddit.exeption.SpringRedditException;
+import com.reddit.reddit.exception.SpringRedditException;
 import com.reddit.reddit.model.NotificationEmail;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

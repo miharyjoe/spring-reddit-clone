@@ -3,7 +3,7 @@ package com.reddit.reddit.service;
 import com.reddit.reddit.dto.AuthenticationResponse;
 import com.reddit.reddit.dto.LoginRequest;
 import com.reddit.reddit.dto.RegisterRequest;
-import com.reddit.reddit.exeption.SpringRedditException;
+import com.reddit.reddit.exception.SpringRedditException;
 import com.reddit.reddit.model.NotificationEmail;
 import com.reddit.reddit.model.User;
 import com.reddit.reddit.model.VerificationToken;
@@ -15,7 +15,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -89,5 +91,13 @@ public class AuthService {
     SecurityContextHolder.getContext().setAuthentication(authenticate);
     String token = jwtProvider.generateToken(authenticate);
     return new AuthenticationResponse(token,loginRequest.getUsername());
+  }
+
+  @Transactional(readOnly = true)
+  public User getCurrentUser() {
+    Jwt principal = (Jwt) SecurityContextHolder.
+      getContext().getAuthentication().getPrincipal();
+    return userRepository.findByUsername(principal.getSubject())
+      .orElseThrow(() -> new UsernameNotFoundException("User name not found - " + principal.getSubject()));
   }
 }

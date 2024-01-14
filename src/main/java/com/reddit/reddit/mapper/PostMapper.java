@@ -12,8 +12,6 @@ import org.mapstruct.Mapping;
 public interface PostMapper {
 
   @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
-  @Mapping(target = "subreddit", source = "subreddit")
-  @Mapping(target = "user", source = "user")
   @Mapping(target = "description", source = "postRequest.description")
   Post map(PostRequest postRequest, Subreddit subreddit, User user);
 

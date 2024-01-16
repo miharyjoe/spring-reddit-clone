@@ -28,7 +28,8 @@ public class VoteService {
   public void vote(VoteDto voteDto) {
     Post post = postRepository.findById(voteDto.getPostId())
       .orElseThrow(() -> new PostNotFoundException("Post Not Found with ID - " + voteDto.getPostId()));
-    Optional<Vote> voteByPostAndUser = voteRepository.findTopByPostAndUserOrderByVoteIdDesc(post, authService.getCurrentUser());
+    Optional<Vote> voteByPostAndUser = voteRepository
+      .findTopByPostAndUserOrderByVoteIdDesc(post, authService.getCurrentUser());
     if (voteByPostAndUser.isPresent() &&
       voteByPostAndUser.get().getVoteType()
         .equals(voteDto.getVoteType())) {

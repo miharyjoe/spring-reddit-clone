@@ -44,7 +44,8 @@ public class SecurityConfig  {
   RSAPrivateKey privateKey;
 
   @Bean
-  public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+  public AuthenticationManager authenticationManager
+    (AuthenticationConfiguration authenticationConfiguration) throws Exception {
     return authenticationConfiguration.getAuthenticationManager();
   }
 
@@ -61,12 +62,9 @@ public class SecurityConfig  {
         .permitAll()
         .requestMatchers(HttpMethod.GET, "/api/posts/**")
         .permitAll()
-        .requestMatchers("/v2/api-docs",
-          "/configuration/ui",
-          "/swagger-resources/**",
-          "/configuration/security",
-          "/swagger-ui.html",
-          "/webjars/**")
+        .requestMatchers("/v3/api-docs/**",
+          "/swagger-ui/**",
+          "/swagger-ui.html")
         .permitAll()
         .anyRequest()
         .authenticated())

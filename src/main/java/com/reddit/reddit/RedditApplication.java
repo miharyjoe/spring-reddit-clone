@@ -8,7 +8,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
 @EnableAsync
-@Import(OpenApiConfiguration.class)
 public class RedditApplication {
 
 	public static void main(String[] args) {
